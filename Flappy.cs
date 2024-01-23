@@ -6,9 +6,17 @@ using System.Threading.Tasks;
 
 namespace FlapFlap
 {
-    internal class Flappy
+    class Flappy
     {
-
+        int Width { set; get; }
+        int Height { set; get; }
+        Board board;
+        public Flappy(int width, int height)
+        {
+            Width = width;
+            Height = height;
+        }
+        void Setup() { board = new Board(Width, Height); }
     }
     public class Board
     {

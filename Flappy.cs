@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -13,6 +14,11 @@ namespace FlapFlap
         int Height { set; get; }
         Board board;
         Bird bird;
+        Wall wall111;
+        Wall wall112;
+        Wall wall113;
+        int score;
+
         public Flappy(int width, int height)
         {
             Width = width;
@@ -22,6 +28,10 @@ namespace FlapFlap
         {
             board = new Board(Width, Height);
             bird = new Bird(Height, Height/2);
+            wall111 = new Wall(35, Width, Height);
+            wall112 = new Wall(60, Width, Height);
+            wall113 = new Wall(85, Width, Height);
+            score = 0;
         }
         public void Run () 
         {
@@ -30,12 +40,21 @@ namespace FlapFlap
                 Console.Clear();
                 Setup();
                 board.Write();
-
+                Console.SetCursorPosition((Width / 2) - 4, Height + 2);
+                Console.Write("Score: ");
                 bird.Write();
+                wall111.Move();
+                wall112.Move();
+                wall113.Move();
                 Console.ReadKey(true);
                 while (bird.Y<Height && bird.Y > 1)
                 {
                     bird.Logic();
+                    wall111.Move();
+                    wall112.Move();
+                    wall113.Move();
+                    Console.SetCursorPosition((Width/2)+3, Height + 2);
+                    Console.Write(score);
                     Thread.Sleep(200);
                 }
             }
@@ -55,7 +74,91 @@ namespace FlapFlap
             this.boardHeight = boardHeight;
             randome = new Random();
             X = x;
-            Y = randome.Next(3, boardHeight);
+            Y = randome.Next(3, boardHeight-2);
+            Thread.Sleep(10);
+        }
+        public void Move()
+        {
+            Write("\0");
+            X--;
+            Write();
+            if (X-2 <= 0)
+            {
+                X = 75;
+                Y=randome.Next(3, boardHeight-2);
+            }
+        }
+        void Write()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            if(X-2>=1&&X+2<=boardWidth-1)
+            {
+                for (int i = 1;i < Y-2;i++)
+                {
+                    Console.SetCursorPosition(X-2,i);
+                    Console.Write("│");
+                    Console.SetCursorPosition(X + 2, i);
+                    Console.Write("│");
+                }
+                for (int i = boardHeight; i > Y + 2; i--)
+                {
+                    Console.SetCursorPosition(X - 2, i);
+                    Console.Write("│");
+                    Console.SetCursorPosition(X + 2, i);
+                    Console.Write("│");
+                }
+                for (int i = X-1; i < X + 2; i++)
+                {
+                    Console.SetCursorPosition(i, Y+2);
+                    Console.Write("─");
+                    Console.SetCursorPosition(i, Y-2);
+                    Console.Write("─");
+                }
+                Console.SetCursorPosition(X + 2, Y - 2);
+                Console.Write("┘");
+                Console.SetCursorPosition(X - 2, Y - 2);
+                Console.Write("└");
+                Console.SetCursorPosition(X + 2, Y + 2);
+                Console.Write("┐");
+                Console.SetCursorPosition(X - 2, Y + 2);
+                Console.Write("┌");
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+        void Write(string str)
+        {
+            if (X - 2 >= 1 && X + 2 <= boardWidth - 1)
+            {
+                for (int i = 1; i < Y - 2; i++)
+                {
+                    Console.SetCursorPosition(X - 2, i);
+                    Console.Write(str);
+                    Console.SetCursorPosition(X + 2, i);
+                    Console.Write(str);
+                }
+                for (int i = boardHeight; i > Y + 2; i--)
+                {
+                    Console.SetCursorPosition(X - 2, i);
+                    Console.Write(str);
+                    Console.SetCursorPosition(X + 2, i);
+                    Console.Write(str);
+                }
+                for (int i = X - 1; i < X + 2; i++)
+                {
+                    Console.SetCursorPosition(i, Y + 2);
+                    Console.Write(str);
+                    Console.SetCursorPosition(i, Y - 2);
+                    Console.Write(str);
+                }
+                Console.SetCursorPosition(X + 2, Y - 2);
+                Console.Write(str);
+                Console.SetCursorPosition(X - 2, Y - 2);
+                Console.Write(str);
+                Console.SetCursorPosition(X + 2, Y + 2);
+                Console.Write(str);
+                Console.SetCursorPosition(X - 2, Y + 2);
+                Console.Write(str);
+            }
         }
     }
     class Bird

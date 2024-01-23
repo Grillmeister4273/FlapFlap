@@ -32,6 +32,15 @@ namespace FlapFlap
             wall112 = new Wall(60, Width, Height);
             wall113 = new Wall(85, Width, Height);
             score = 0;
+            Console.SetWindowSize(200, 100);
+            board.Write();
+            Console.SetCursorPosition((Width / 2) - 4, Height + 2);
+            Console.Write("Score: ");
+            bird.Write();
+            wall111.Move();
+            wall112.Move();
+            wall113.Move();
+
         }
         public void Run () 
         {
@@ -39,19 +48,20 @@ namespace FlapFlap
             {
                 Console.Clear();
                 Setup();
-                board.Write();
-                Console.SetCursorPosition((Width / 2) - 4, Height + 2);
-                Console.Write("Score: ");
-                bird.Write();
-                wall111.Move();
-                wall112.Move();
-                wall113.Move();
+                
                 Console.ReadKey(true);
                 while (bird.Y<Height && bird.Y > 1)
                 {
                     if(((bird.X>= wall111.X -2 && bird.X <= wall111.X +2) && (bird.Y <= wall111.Y -1 ||  bird.Y >= wall111.Y +2))
                         ||((bird.X >= wall112.X - 2 && bird.X <= wall112.X + 2) && (bird.Y <= wall112.Y - 1 || bird.Y >= wall112.Y + 2))
                         || (bird.X >= wall113.X - 2 && bird.X <= wall113.X + 2) && (bird.Y <= wall113.Y - 1 || bird.Y >= wall113.Y + 2))
+                    {
+                        break;
+                    }
+                    if (wall111.X == bird.X || wall112.X == bird.X || wall113.X == bird.X)
+                    {
+                        score++;
+                    }
 
                     bird.Logic();
                     wall111.Move();
@@ -247,11 +257,11 @@ namespace FlapFlap
         public int Hight { set; get; }
         public int Width { set; get; }
 
-        public Board()
+        public Board() //#########################################################
         {
-            Hight = 20;
+            Hight = 80;
             Width = 20;
-        }
+        }            //#############################################################
 
         public Board(int hight, int width)
         {
@@ -267,7 +277,7 @@ namespace FlapFlap
             }
             for (int i = 1; i <= Width; i++)
             {
-                Console.SetCursorPosition(i, Hight+1);
+                Console.SetCursorPosition(i, Width+1);
                 Console.Write("─");
             }
             for (int i = 1; i <= Hight; i++)

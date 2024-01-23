@@ -17,6 +17,12 @@ namespace FlapFlap
             Height = height;
         }
         void Setup() { board = new Board(Width, Height); }
+        public void Run () 
+        { 
+            Console.Clear();
+            Setup();
+            board.Write();
+        }
     }
     public class Board
     {
@@ -41,7 +47,7 @@ namespace FlapFlap
                 Console.SetCursorPosition(i, 0);
                 Console.Write("─");
             }
-            for (int i = 1; i <= Width; i++)
+            for (int i = 1; i <= Hight; i++)
             {
                 Console.SetCursorPosition(i, 0);
                 Console.Write("─");
@@ -51,7 +57,7 @@ namespace FlapFlap
                 Console.SetCursorPosition(i, 0);
                 Console.Write("─");
             }
-            for (int i = 1; i <= Width; i++)
+            for (int i = 1; i <= Hight; i++)
             {
                 Console.SetCursorPosition(i, 0);
                 Console.Write("│");

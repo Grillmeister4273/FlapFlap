@@ -10,7 +10,11 @@ namespace FlapFlap
     {
         static void Main(string[] args)
         {
-
+            Console.Title = "Console Flappy Bird";
+            Console.CursorVisible = false;
+            Flappy flappy = new Flappy(75, 20);
+            flappy.Run();
+            Console.ReadKey();
         }
     }
 }

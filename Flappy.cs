@@ -47,19 +47,19 @@ namespace FlapFlap
                 Console.SetCursorPosition(i, 0);
                 Console.Write("─");
             }
-            for (int i = 1; i <= Hight; i++)
-            {
-                Console.SetCursorPosition(i, 0);
-                Console.Write("─");
-            }
             for (int i = 1; i <= Width; i++)
             {
-                Console.SetCursorPosition(i, 0);
+                Console.SetCursorPosition(i, Hight+1);
                 Console.Write("─");
             }
             for (int i = 1; i <= Hight; i++)
             {
-                Console.SetCursorPosition(i, 0);
+                Console.SetCursorPosition(0, i);
+                Console.Write("│");
+            }
+            for (int i = 1; i <= Hight; i++)
+            {
+                Console.SetCursorPosition(Width+1, i);
                 Console.Write("│");
             }
             Console.SetCursorPosition(0, 0);

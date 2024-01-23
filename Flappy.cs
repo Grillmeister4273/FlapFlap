@@ -49,13 +49,17 @@ namespace FlapFlap
                 Console.ReadKey(true);
                 while (bird.Y<Height && bird.Y > 1)
                 {
+                    if(((bird.X>= wall111.X -2 && bird.X <= wall111.X +2) && (bird.Y <= wall111.Y -1 ||  bird.Y >= wall111.Y +2))
+                        ||((bird.X >= wall112.X - 2 && bird.X <= wall112.X + 2) && (bird.Y <= wall112.Y - 1 || bird.Y >= wall112.Y + 2))
+                        || (bird.X >= wall113.X - 2 && bird.X <= wall113.X + 2) && (bird.Y <= wall113.Y - 1 || bird.Y >= wall113.Y + 2))
+
                     bird.Logic();
                     wall111.Move();
                     wall112.Move();
                     wall113.Move();
                     Console.SetCursorPosition((Width/2)+3, Height + 2);
                     Console.Write(score);
-                    Thread.Sleep(200);
+                    Thread.Sleep(150);
                 }
             }
         }

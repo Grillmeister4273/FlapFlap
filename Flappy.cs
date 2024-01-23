@@ -74,13 +74,13 @@ namespace FlapFlap
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.SetCursorPosition(X, Y - 1);
-            Console.Write("▄");
+            Console.Write(str);
             Console.SetCursorPosition(X - 1, Y - 1);
-            Console.Write("▄");
+            Console.Write(str);
             Console.SetCursorPosition(X - 1, Y);
-            Console.Write("▀");
+            Console.Write(str);
             Console.SetCursorPosition(X, Y);
-            Console.Write("▀");
+            Console.Write(str);
             Console.ForegroundColor = ConsoleColor.White;
         }
     }

@@ -51,7 +51,10 @@ namespace FlapFlap
                 {
                     if(((bird.X>= wall111.X -2 && bird.X <= wall111.X +2) && (bird.Y <= wall111.Y -1 ||  bird.Y >= wall111.Y +2))
                         ||((bird.X >= wall112.X - 2 && bird.X <= wall112.X + 2) && (bird.Y <= wall112.Y - 1 || bird.Y >= wall112.Y + 2))
-                        || (bird.X >= wall113.X - 2 && bird.X <= wall113.X + 2) && (bird.Y <= wall113.Y - 1 || bird.Y >= wall113.Y + 2))
+                        || ((bird.X >= wall113.X - 2 && bird.X <= wall113.X + 2) && (bird.Y <= wall113.Y - 1 || bird.Y >= wall113.Y + 2)))
+                    {
+
+                    }
 
                     bird.Logic();
                     wall111.Move();

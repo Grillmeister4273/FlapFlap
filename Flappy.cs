@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace FlapFlap
 {
@@ -12,17 +12,33 @@ namespace FlapFlap
         int Width { set; get; }
         int Height { set; get; }
         Board board;
+        Bird bird;
         public Flappy(int width, int height)
         {
             Width = width;
             Height = height;
         }
-        void Setup() { board = new Board(Width, Height); }
+        void Setup()
+        {
+            board = new Board(Width, Height);
+            bird = new Bird(Height, Height/2);
+        }
         public void Run () 
-        { 
-            Console.Clear();
-            Setup();
-            board.Write();
+        {
+            while (true)
+            {
+                Console.Clear();
+                Setup();
+                board.Write();
+
+                bird.Write();
+                Console.ReadKey(true);
+                while (bird.Y<Height && bird.Y > 0)
+                {
+                    bird.Logic();
+                    Thread.Sleep(200);
+                }
+            }
         }
     }
     class Bird
@@ -39,7 +55,7 @@ namespace FlapFlap
             keyInfo = new ConsoleKeyInfo();
             consoleKey = new ConsoleKey();
         }
-        void Input ()
+        void Input()
         {
             if (Console.KeyAvailable)
             {
@@ -47,13 +63,31 @@ namespace FlapFlap
                 consoleKey = keyInfo.Key;
             }
         }
-        public void Logic ()
+        public void Logic()
         {
+            Input();
+            if (consoleKey == ConsoleKey.Spacebar)
+            {
+                Up();
+            }
+            else
+            {
+
+                Down();
+            }
+            consoleKey = ConsoleKey.A;
 
         }
         void Up()
         {
+            Write("\0");
             Y--;
+            Write();
+        }
+        void Down()
+        {
+            Write("\0");
+            Y++;
             Write();
         }
 
@@ -92,7 +126,7 @@ namespace FlapFlap
         public Board()
         {
             Hight = 20;
-            Width = 80;
+            Width = 20;
         }
 
         public Board(int hight, int width)

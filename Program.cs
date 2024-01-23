@@ -12,7 +12,7 @@ namespace FlapFlap
         {
             Console.Title = "Console Flappy Bird";
             Console.CursorVisible = false;
-            Flappy flappy = new Flappy(25,110);
+            Flappy flappy = new Flappy(75,20);
             flappy.Run();
             Console.ReadKey();
         }

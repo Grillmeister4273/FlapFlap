@@ -33,12 +33,29 @@ namespace FlapFlap
 
                 bird.Write();
                 Console.ReadKey(true);
-                while (bird.Y<Height && bird.Y > 0)
+                while (bird.Y<Height && bird.Y > 1)
                 {
                     bird.Logic();
                     Thread.Sleep(200);
                 }
             }
+        }
+    }
+    class Wall
+    {
+        public int X { set; get; }
+        public int Y { set; get; }
+        Random randome;
+        int boardWidth;
+        int boardHeight;
+
+        public Wall(int x,int boardWidth, int boardHeight)
+        {
+            this.boardWidth = boardWidth;
+            this.boardHeight = boardHeight;
+            randome = new Random();
+            X = x;
+            Y = randome.Next(3, boardHeight);
         }
     }
     class Bird

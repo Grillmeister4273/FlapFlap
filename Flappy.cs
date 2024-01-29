@@ -32,6 +32,14 @@ namespace FlapFlap
             wall112 = new Wall(60, Width, Height);
             wall113 = new Wall(85, Width, Height);
             score = 0;
+            board.Write();
+            Console.SetCursorPosition((Width / 2) - 4, Height + 2);
+            Console.Write("Score: ");
+            bird.Write();
+            wall111.Move();
+            wall112.Move();
+            wall113.Move();
+
         }
         public void Run () 
         {
@@ -39,13 +47,7 @@ namespace FlapFlap
             {
                 Console.Clear();
                 Setup();
-                board.Write();
-                Console.SetCursorPosition((Width / 2) - 4, Height + 2);
-                Console.Write("Score: ");
-                bird.Write();
-                wall111.Move();
-                wall112.Move();
-                wall113.Move();
+                
                 Console.ReadKey(true);
                 while (bird.Y<Height && bird.Y > 1)
                 {
@@ -53,7 +55,11 @@ namespace FlapFlap
                         ||((bird.X >= wall112.X - 2 && bird.X <= wall112.X + 2) && (bird.Y <= wall112.Y - 1 || bird.Y >= wall112.Y + 2))
                         || ((bird.X >= wall113.X - 2 && bird.X <= wall113.X + 2) && (bird.Y <= wall113.Y - 1 || bird.Y >= wall113.Y + 2)))
                     {
-
+                        break;
+                    }
+                    if (wall111.X == bird.X || wall112.X == bird.X || wall113.X == bird.X)
+                    {
+                        score++;
                     }
 
                     bird.Logic();
@@ -81,7 +87,7 @@ namespace FlapFlap
             this.boardHeight = boardHeight;
             randome = new Random();
             X = x;
-            Y = randome.Next(3, boardHeight-2);
+            Y = randome.Next(8, boardHeight-2);
             Thread.Sleep(10);
         }
         public void Move()
@@ -92,7 +98,7 @@ namespace FlapFlap
             if (X-2 <= 0)
             {
                 X = 75;
-                Y=randome.Next(3, boardHeight-2);
+                Y=randome.Next(3, boardHeight-8);
             }
         }
         void Write()

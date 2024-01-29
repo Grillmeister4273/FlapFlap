@@ -52,12 +52,12 @@ namespace FlapFlap
                 while (bird.Y<Height && bird.Y > 1)
                 {
                     if(((bird.X>= wall111.X -2 && bird.X <= wall111.X +2) && (bird.Y <= wall111.Y -1 ||  bird.Y >= wall111.Y +2))
-                        ||((bird.X >= wall112.X - 2 && bird.X <= wall112.X + 2) && (bird.Y <= wall112.Y - 1 || bird.Y >= wall112.Y + 2))
+                        ||((bird.X >= wall112.X - 2 && bird.X <= wall112.X + 2) && (bird.Y <= wall112.Y - 1 || bird.Y >= wall112.Y + 2))    //collision query
                         || ((bird.X >= wall113.X - 2 && bird.X <= wall113.X + 2) && (bird.Y <= wall113.Y - 1 || bird.Y >= wall113.Y + 2)))
                     {
                         break;
                     }
-                    if (wall111.X == bird.X || wall112.X == bird.X || wall113.X == bird.X)
+                    if (wall111.X == bird.X || wall112.X == bird.X || wall113.X == bird.X)  //checks whether a wall has been passed
                     {
                         score++;
                     }
@@ -81,13 +81,13 @@ namespace FlapFlap
         int boardWidth;
         int boardHeight;
 
-        public Wall(int x,int boardWidth, int boardHeight)
+        public Wall(int x,int boardWidth, int boardHeight)  //defines Wall
         {
             this.boardWidth = boardWidth;
             this.boardHeight = boardHeight;
             randome = new Random();
             X = x;
-            Y = randome.Next(8, boardHeight-2);
+            Y = randome.Next(8, boardHeight - 8);     //adjusts the difficulty
             Thread.Sleep(10);
         }
         public void Move()
@@ -101,7 +101,7 @@ namespace FlapFlap
                 Y=randome.Next(3, boardHeight-8);
             }
         }
-        void Write()
+        void Write()        //zeichnet die Wände
         {
             Console.ForegroundColor = ConsoleColor.Green;
             if(X-2>=1&&X+2<=boardWidth-1)
@@ -224,7 +224,7 @@ namespace FlapFlap
             Write();
         }
 
-        public void Write()
+        public void Write()     //vermuteter kleiner Bug
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.SetCursorPosition(X,Y-1);
@@ -256,7 +256,7 @@ namespace FlapFlap
         public int Hight { set; get; }
         public int Width { set; get; }
 
-        public Board()
+        public Board()      //verbugt
         {
             Hight = 20;
             Width = 20;
@@ -267,7 +267,7 @@ namespace FlapFlap
             Hight = hight;
             Width = width;
         }
-        public void Write ()
+        public void Write ()        // zeichnet den weißen Rahmen
         {
             for (int i = 1;i <= Width;i++) 
             {

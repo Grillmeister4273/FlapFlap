@@ -14,9 +14,9 @@ namespace FlapFlap
         int Height { set; get; }
         Board board;
         Bird bird;
-        Wall wall111;
-        Wall wall112;
-        Wall wall113;
+        Wall wall1;
+        Wall wall2;
+        Wall wall3;
         int score;
 
         public Flappy(int width, int height)
@@ -28,17 +28,17 @@ namespace FlapFlap
         {
             board = new Board(Width, Height);
             bird = new Bird(Height, Height/2);
-            wall111 = new Wall(35, Width, Height);
-            wall112 = new Wall(60, Width, Height);
-            wall113 = new Wall(85, Width, Height);
+            wall1 = new Wall(35, Width, Height);
+            wall2 = new Wall(60, Width, Height);
+            wall3 = new Wall(85, Width, Height);
             score = 0;
-            board.Write();
+            //board.Write();
             Console.SetCursorPosition((Width / 2) - 4, Height + 2);
             Console.Write("Score: ");
             bird.Write();
-            wall111.Move();
-            wall112.Move();
-            wall113.Move();
+            wall1.Move();
+            wall2.Move();
+            wall3.Move();
 
         }
         public void Run () 
@@ -51,21 +51,21 @@ namespace FlapFlap
                 Console.ReadKey(true);
                 while (bird.Y<Height && bird.Y > 1)
                 {
-                    if(((bird.X>= wall111.X -2 && bird.X <= wall111.X +2) && (bird.Y <= wall111.Y -1 ||  bird.Y >= wall111.Y +2))
-                        ||((bird.X >= wall112.X - 2 && bird.X <= wall112.X + 2) && (bird.Y <= wall112.Y - 1 || bird.Y >= wall112.Y + 2))    //collision query
-                        || ((bird.X >= wall113.X - 2 && bird.X <= wall113.X + 2) && (bird.Y <= wall113.Y - 1 || bird.Y >= wall113.Y + 2)))
+                    if(((bird.X>= wall1.X -2 && bird.X <= wall1.X +2) && (bird.Y <= wall1.Y -1 ||  bird.Y >= wall1.Y +2))
+                        ||((bird.X >= wall2.X - 2 && bird.X <= wall2.X + 2) && (bird.Y <= wall2.Y - 1 || bird.Y >= wall2.Y + 2))    //collision query
+                        || ((bird.X >= wall3.X - 2 && bird.X <= wall3.X + 2) && (bird.Y <= wall3.Y - 1 || bird.Y >= wall3.Y + 2)))
                     {
-                        break;
+                    //    break;
                     }
-                    if (wall111.X == bird.X || wall112.X == bird.X || wall113.X == bird.X)  //checks whether a wall has been passed
+                    if (wall1.X == bird.X || wall2.X == bird.X || wall3.X == bird.X)  //checks whether a wall has been passed
                     {
                         score++;
                     }
 
                     bird.Logic();
-                    wall111.Move();
-                    wall112.Move();
-                    wall113.Move();
+                    wall1.Move();
+                    wall2.Move();
+                    wall3.Move();
                     Console.SetCursorPosition((Width/2)+3, Height + 2);
                     Console.Write(score);
                     Thread.Sleep(150);
@@ -87,7 +87,7 @@ namespace FlapFlap
             this.boardHeight = boardHeight;
             randome = new Random();
             X = x;
-            Y = randome.Next(8, boardHeight - 8);     //adjusts the difficulty
+            Y = randome.Next(15, boardHeight - 5);     //adjusts the difficulty
             Thread.Sleep(10);
         }
         public void Move()
@@ -98,7 +98,7 @@ namespace FlapFlap
             if (X-2 <= 0)
             {
                 X = 75;
-                Y=randome.Next(3, boardHeight-8);
+                Y=randome.Next(8, boardHeight-8);
             }
         }
         void Write()        //zeichnet die Wände
@@ -267,7 +267,7 @@ namespace FlapFlap
             Hight = hight;
             Width = width;
         }
-        public void Write ()        // zeichnet den weißen Rahmen
+       /* public void Write ()        // zeichnet den weißen Rahmen
         {
             for (int i = 1;i <= Width;i++) 
             {
@@ -297,6 +297,6 @@ namespace FlapFlap
             Console.Write("└");
             Console.SetCursorPosition(Width +1, Hight+1);
             Console.Write("┘");
-        }
+        }*/
     }
 }
